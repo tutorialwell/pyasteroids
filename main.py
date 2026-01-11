@@ -8,24 +8,32 @@ def main():
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
     
+    # Containers
+    updatable = pygame.sprite.Group() # Objects that can be updated
+    drawable = pygame.sprite.Group()  # Objects that can be drawn
+    Player.containers = (updatable, drawable)
+    
+    # Initialize game
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
-    dt = 0
+    delta_time = 0
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     
+    # Begin game loop
     while (True):
         log_state()
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-        
-        screen.fill("black")
-        player.draw(screen)
-        pygame.display.flip()
 
-        dt = clock.tick(60) / 1_000
+        delta_time = clock.tick(60) / 1_000
+        screen.fill("black")
+        for obj in drawable:
+            obj.draw(screen)
+        updatable.update(delta_time)
+        pygame.display.flip()
 
 if __name__ == "__main__":
     main()
