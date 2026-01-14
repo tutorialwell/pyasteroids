@@ -14,8 +14,8 @@ class CircleShape(pygame.sprite.Sprite):
 		self.velocity = pygame.Vector2(0, 0)
 		self.radius = radius
 		
-	def collides_with(self, other: CircleShape):
-		distance_between_circles = self.postion.distance_to(other)
+	def collides_with(self, other):
+		distance_between_circles = self.position.distance_to(other.position)
 		radius_of_circles = self.radius + other.radius
 		
 		if distance_between_circles <= radius_of_circles:

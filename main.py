@@ -1,7 +1,9 @@
+import pygame
+import sys
+
 from asteroidfield import AsteroidField
 from asteroid import Asteroid
 from logger import log_state, log_event
-import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from player import Player
 
@@ -42,6 +44,12 @@ def main():
         updatable.update(delta_time)
         pygame.display.flip()
         delta_time = clock.tick(60) / 1_000
+        
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
 
 if __name__ == "__main__":
     main()
