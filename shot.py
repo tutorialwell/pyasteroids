@@ -1,5 +1,3 @@
-# shot.py
-
 import pygame
 
 from circleshape import CircleShape
